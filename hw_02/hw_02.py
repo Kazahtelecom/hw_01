@@ -61,6 +61,20 @@ def main():
         f.write(f"Set approach time: {set_time:.6f} seconds\n")
         f.write(f"Speedup: {speedup:.1f}x faster\n")
         f.write(f"Results are the same: {is_correct}\n")
+        f.write(f"1. Naive approach has O(n×m) complexity:\n")
+        f.write(f"   • 50,000 × 50,000 = 2,500,000,000 operations\n")
+        f.write(f"   • Each 'item in arr2' requires linear search\n\n")
+        f.write(f"2. Set approach has O(n + m) complexity:\n")
+        f.write(f"   • 50,000 + 50,000 = 100,000 operations\n")
+        f.write(f"   • Set lookups are on average O(1)\n")
+
+        f.write(f"3. Speed difference:\n")
+        f.write(f"   • Naive: {naive_time:.6f} seconds\n")
+        f.write(f"   • Set: {set_time:.6f} seconds\n")
+        f.write(f"   • Speedup: {speedup:.1f}x faster\n")
+        
+
+        
     
     # Output to screen
     print(f"\n=== RESULTS ===")
