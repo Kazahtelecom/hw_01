@@ -1,0 +1,4 @@
+Naive approach time: 10.171402 seconds
+Set approach time: 0.007307 seconds
+Speedup: 1392.0x faster
+Results are the same: True
