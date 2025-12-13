@@ -1,3 +1,8 @@
+import random
+import time
+
+
+
 def find_common_naive(arr1, arr2):
     """
     Наивный подход: O(n * m)
@@ -17,3 +22,18 @@ def find_common_set(arr1, arr2):
     set1 = set(arr1)
     set2 = set(arr2)
     return list(set1 & set2)
+
+def main():
+    """
+    The main function for generating data, measuring performance, and writing results to a file
+    """
+    size = 50000
+    max_value = 30000
+    arr1 = [random.randint(0, max_value) for _ in range(size)]
+    arr2 = [random.randint(0, max_value) for _ in range(size)]
+    print ("Array sizes", size)
+
+    start_time = time.time()
+    common_naive = find_common_naive(arr1, arr2)
+    naive_time = time.time() - start_time
+    
