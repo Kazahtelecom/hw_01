@@ -36,4 +36,15 @@ def main():
     start_time = time.time()
     common_naive = find_common_naive(arr1, arr2)
     naive_time = time.time() - start_time
+
+    start_time = time.time()
+    common_set = find_common_set(arr1, arr2)
+    set_time = time.time() - start_time
     
+    is_correct = set(common_naive) == set(common_set)
+
+    with open("results.txt", "w") as f:
+        f.write(f"Naive approach time: {naive_time:.6f} seconds\n")
+        f.write(f"Set approach time: {set_time:.6f} seconds\n")
+        f.write(f"Results are the same: {is_correct}\n")
+    print("Results written to results.txt")
