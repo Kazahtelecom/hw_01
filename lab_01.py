@@ -7,16 +7,16 @@ data = [random.randint(1, n // 2) for _ in range(n)]
 target = random.choice(data)
 
 # Поиск в списке
-start = time.time()
+start = time.perf_counter()
 target in data 
-end = time.time()
+end = time.perf_counter()
 list_time = end - start
 # Поиск в множестве
 data_set = set(data)
-# Измерение времени поиска в множестве
-start = time.time()
+# 
+start = time.perf_counter()
 target in data_set 
-end = time.time()
+end = time.perf_counter()
 set_time = end - start
 # Вывод результатов
 print(f"Time taken to search in list: {list_time:.6f} seconds")
