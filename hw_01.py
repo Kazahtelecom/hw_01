@@ -31,8 +31,7 @@ def main():
     max_value = 30000
     arr1 = [random.randint(0, max_value) for _ in range(size)]
     arr2 = [random.randint(0, max_value) for _ in range(size)]
-    print ("Array sizes", size "elements each")
-    
+    print (f"Array sizes: {size} each") 
 
     start_time = time.time()
     common_naive = find_common_naive(arr1, arr2)
