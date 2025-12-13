@@ -31,7 +31,8 @@ def main():
     max_value = 30000
     arr1 = [random.randint(0, max_value) for _ in range(size)]
     arr2 = [random.randint(0, max_value) for _ in range(size)]
-    print ("Array sizes", size)
+    print ("Array sizes", size "elements each")
+    
 
     start_time = time.time()
     common_naive = find_common_naive(arr1, arr2)
@@ -48,3 +49,7 @@ def main():
         f.write(f"Set approach time: {set_time:.6f} seconds\n")
         f.write(f"Results are the same: {is_correct}\n")
     print("Results written to results.txt")
+# Output results to the screen
+    print(f"Naive approach time: {naive_time:.6f} seconds")
+    print(f"Set approach time: {set_time:.6f} seconds")
+    print(f"Results are the same: {is_correct}")
