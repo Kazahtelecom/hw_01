@@ -1,4 +1,15 @@
-Naive approach time: 10.171402 seconds
-Set approach time: 0.007307 seconds
-Speedup: 1392.0x faster
+Naive approach time: 11.211499 seconds
+Set approach time: 0.007003 seconds
+Speedup: 1600.9x faster
 Results are the same: True
+1. Naive approach has O(n*m) complexity:
+   • 50,000 * 50,000 = 2,500,000,000 operations
+   • Each 'item in arr2' requires linear search
+
+2. Set approach has O(n + m) complexity:
+   • 50,000 + 50,000 = 100,000 operations
+   • Set lookups are on average O(1)
+3. Speed difference:
+   • Naive: 11.211499 seconds
+   • Set: 0.007003 seconds
+   • Speedup: 1600.9x faster
