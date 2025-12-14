@@ -56,22 +56,44 @@ def main():
         speedup = float('inf')
     
     # Write to file
-    with open("results.txt", "w") as f:
-        f.write(f"Naive approach time: {naive_time:.6f} seconds\n")
-        f.write(f"Set approach time: {set_time:.6f} seconds\n")
-        f.write(f"Speedup: {speedup:.1f}x faster\n")
-        f.write(f"Results are the same: {is_correct}\n")
-        f.write(f"1. Naive approach has O(n*m) complexity:\n")
-        f.write(f"    50,000 * 50,000 = 2,500,000,000 operations\n")
-        f.write(f"    Each 'item in arr2' requires linear search\n\n")
-        f.write(f"2. Set approach has O(n + m) complexity:\n")
-        f.write(f"    50,000 + 50,000 = 100,000 operations\n")
-        f.write(f"    Set lookups are on average O(1)\n")
+        # Write to file in required format
+    with open("results.txt", "w", encoding="utf-8") as f:
+        f.write("========================================\n")
+        f.write("ДОМАШНЕЕ ЗАДАНИЕ 1 — РЕЗУЛЬТАТЫ\n")
+        f.write("========================================\n\n")
 
-        f.write(f"3. Speed difference:\n")
-        f.write(f"    Naive: {naive_time:.6f} seconds\n")
-        f.write(f"    Set: {set_time:.6f} seconds\n")
-        f.write(f"    Speedup: {speedup:.1f}x faster\n")
+        f.write(f"Размер array1: {size}\n")
+        f.write(f"Размер array2: {size}\n")
+        f.write(f"Диапазон значений: 1-{max_value}\n\n")
+
+        f.write("ПОДХОД 1: НАИВНЫЙ (вложенные циклы)\n")
+        f.write("-------------------------------------\n")
+        f.write(f"Время выполнения: {naive_time:.4f} секунд\n")
+        f.write(f"Найдено общих элементов: {len(common_naive)}\n\n")
+
+        f.write("ПОДХОД 2: МНОЖЕСТВА (set intersection)\n")
+        f.write("---------------------------------------\n")
+        f.write(f"Время выполнения: {set_time:.4f} секунд\n")
+        f.write(f"Найдено общих элементов: {len(common_set)}\n\n")
+
+        f.write("СРАВНЕНИЕ\n")
+        f.write("---------\n")
+        f.write(f"Ускорение: {speedup:.1f} раз\n\n")
+
+        f.write("ОБЪЯСНЕНИЕ РАЗНИЦЫ В ПРОИЗВОДИТЕЛЬНОСТИ:\n")
+        f.write(
+            "Наивный подход использует вложенные циклы и проверяет каждый элемент "
+            "первого массива на наличие во втором массиве с помощью линейного поиска. "
+            "Это приводит к квадратичной временной сложности O(n*m), что при больших "
+            "размерах массивов вызывает резкое увеличение времени выполнения. "
+            "Подход с использованием множеств преобразует массивы в структуры данных "
+            "с хешированием, где проверка наличия элемента выполняется в среднем за O(1). "
+            "Благодаря этому общая сложность снижается до O(n+m), что обеспечивает "
+            "значительное ускорение работы программы.\n\n"
+        )
+
+        f.write("========================================\n")
+
         
 
         
