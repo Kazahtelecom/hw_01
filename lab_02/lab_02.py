@@ -19,8 +19,8 @@ def run_experiments():
     """
     
     # Названия колонок
-    header = f"{'Size':>10} | {'List Time (s)':>15} | {'Set Time (s)':>15} | {'Speedup':>10}"
-    separator = "-" * 60
+    header = f"{'Size':>30} | {'List Time (s)':>25} | {'Set Time (s)':>25} | {'Speedup':>30}"
+    separator = "-" * 100
     
     print("--- Запуск эксперимента List vs Set ---")
     print(header)
