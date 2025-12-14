@@ -1,67 +1,28 @@
 import time
 import random
 
-def run_experiments():
-    """
-    Проводит эксперименты по сравнению времени поиска элемента
-    в списке (List) и во множестве (Set) при экспоненциальном
-    росте размера данных (от 10^1 до 10^7 элементов).
-    
-    Результаты выводятся в консоль и сохраняются в файл 'res.txt'.
-    
-    Notes
-    -----
-    Сложность поиска:
-    * Список (List): O(n) - линейное время.
-    * Множество (Set): O(1) - константное время.
-    
-    Расчет времени создания множества (set(data)) исключен из замера.
-    """
-    
-    # Названия колонок
-    header = f"{'Size':>10} | {'List Time (s)':>15} | {'Set Time (s)':>15} | {'Speedup':>10}"
-    separator = "-" * 60
-    
-    print("--- Запуск эксперимента List vs Set ---")
-    print(header)
-    print(separator)
+# Генерация данных
+n = 100000
+data = [random.randint(1, n // 2) for _ in range(n)]
+target = random.choice(data)
 
-    # Открываем файл для записи
-    with open("res.txt", "w", ) as f:
-        f.write(header + "\n")
-        f.write(separator + "\n")
+# Поиск в списке
+start = time.perf_counter()
+target in data 
+end = time.perf_counter()
+list_time = end - start
 
-        for exp in range(1, 8):
-            n = 10 ** exp
-            # Генерация данных
-            data = [random.randint(1, n // 2) for _ in range(n)]
-            target = random.choice(data)
-
-            # 1. Search in list (O(n))
-            start = time.perf_counter()
-            _ = target in data 
-            end = time.perf_counter()
-            list_time = end - start
-
-            # 2. Search in set (O(1))
-            data_set = set(data)
-            start = time.perf_counter()
-            _ = target in data_set
-            end = time.perf_counter()
-            set_time = end - start
-
-            # Расчет ускорения
-            speedup = list_time / set_time if set_time > 0 else 0.0
-            
-            # Формируем строку
-            row = f"{n:10d} | {list_time:15.6f} | {set_time:15.6f} | {speedup:10.2f}x"
-            
-            # Вывод в консоль и запись в файл
-            print(row)
-            f.write(row + "\n")
-            
-    print("\n--- Эксперимент завершен. Результаты сохранены в 'res.txt'. ---")
+# Поиск в множестве
+data_set = set(data)
 
 
-if __name__ == "__main__":
-    run_experiments()
+start = time.perf_counter()
+target in data_set 
+end = time.perf_counter()
+set_time = end - start
+# Вывод результатов
+print(f"Time taken to search in list: {list_time:.6f} seconds")
+print(f"Time taken to search in set: {set_time:.6f} seconds")
+print(f"Set search is {list_time / set_time:.2f} times faster than list search")
+print(f"Data size: {n} elements")
+print(f"Target value: {target}")
