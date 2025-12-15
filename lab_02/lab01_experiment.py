@@ -2,74 +2,92 @@ import time
 import random
 
 
-def run_experiments():
+def run_experiments(n):
     """
-    Проводит эксперименты по сравнению времени поиска элемента
-    в списке (List) и во множестве (Set) при экспоненциальном
-    росте размера данных (от 10^1 до 10^7 элементов).
+    Генерирует данные размера n и замеряет время поиска.
+    Используется наихудший случай (элемента нет в списке).
 
-    Результаты выводятся в консоль и сохраняются в файл 'lab01_results'.
+    Args:
+        n (int): Размер данных.
 
-    Notes
-    -----
-    Сложность поиска:
-    * Список (List): O(n) - линейное время.
-    * Множество (Set): O(1) - константное время.
-
-    Расчет времени создания множества (set(data)) исключен из замера.
+    Returns:
+        tuple: (время_список, время_множество)
     """
+    # Генерация данных
+    data = [random.randint(1, n // 2) for _ in range(n)]
+    target = -1  # Элемента точно нет -> наихудший случай для списка
 
-    # name the columns
-    header = f"{'Size':>30} | {'List Time (s)':>25} | {'Set Time (s)':>25} | {'Speedup':>30}"
-    separator = "-" * 100
+    # 1. Замер списка
+    start = time.perf_counter()
+    _ = target in data
+    t_list = time.perf_counter() - start
 
-    print("--- Запуск эксперимента List vs Set ---")
+    # 2. Замер множества (время создания не учитываем)
+    data_set = set(data)
+    start = time.perf_counter()
+    _ = target in data_set
+    t_set = time.perf_counter() - start
+
+    return t_list, t_set
+
+
+def logs(f, n, t_list, t_set):
+    """
+    Рассчитывает ускорение и записывает строку результатов 
+    в файл и в консоль.
+
+    Args:
+        f (file object): Открытый файл для записи.
+        n (int): Размер данных.
+        t_list (float): Время поиска в списке.
+        t_set (float): Время поиска в множестве.
+    """
+    # Считаем ускорение
+    speedup = t_list / t_set if t_set > 0 else 0.0
+
+    # Форматируем строку (используем f-строки для красоты)
+    # <10 означает выравнивание по левому краю, ширина 10
+    row = f"{n:<10} | {t_list:<15.6f} | {t_set:<15.6f} | {speedup:<10.1f}x"
+
+    # Печатаем в терминал
+    print(row)
+
+    # Пишем в файл (+ перенос строки \n)
+    f.write(row + "\n")
+
+
+def benchmark():
+    """
+    Основная функция. Настраивает файл, запускает цикл по размерам
+    и вызывает функции эксперимента и логирования.
+    """
+    filename = 'lab01_results.txt'
+
+    # Заголовки таблицы
+    header = f"{'Размер':<10} | {'Список (сек)':<15} | {'Множество (сек)':<15} | {'Ускорение':<10}"
+    separator = "-" * 65
+
+    print("--- Start Benchmark ---")
     print(header)
     print(separator)
 
-
-    # Открываем файл для записи
-    with open("lab01_results.txt", "w", ) as f:
+    # Открываем файл один раз перед циклом
+    with open(filename, 'w', encoding='utf-8') as f:
         f.write(header + "\n")
         f.write(separator + "\n")
 
+        # Цикл по степеням десятки: 10, 100, ..., 10,000,000
         for exp in range(1, 8):
-
             n = 10 ** exp
-            # Generate data with no occurrence of target
-            data = [random.randint(1, n // 2) for _ in range(n)]
-            target = -1
 
-            # 1. Search in list (O(n))
-            start = time.perf_counter()
-            _ = target in data
-            end = time.perf_counter()
-            list_time = end - start
+            # 1. Запускаем эксперимент
+            t_list, t_set = run_experiments(n)
 
-            # 2. Search in set (O(1))
-            data_set = set(data)
-            start = time.perf_counter()
-            _ = target in data_set
-            end = time.perf_counter()
-            set_time = end - start # Exclude set creation time
+            # 2. Логируем результаты
+            logs(f, n, t_list, t_set)
 
-            # Acceleration calculation
-            speedup = list_time / set_time if set_time > 0 else 0.0
-
-            # Format the result row
-            row = f"{n:10d} | {list_time:15.6f} | {set_time:15.6f} | {speedup:10.2f}x"
-
-            # output to console and file
-            print(row)
-            f.write(row + "\n")
-            print(f"время поиска в списке: {list_time:.6f} с, время поиска в множестве: {set_time:.6f} с, ускорение: {speedup:.2f}x")
-            print(separator)
-
-
-    print("\n--- Эксперимент завершен. Результаты сохранены в 'lab01_results.txt'. ---")
+    print(f"\nРезультаты сохранены в {filename}")
 
 
 if __name__ == "__main__":
-    run_experiments()
-
-
+    benchmark()
