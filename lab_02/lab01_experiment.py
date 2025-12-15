@@ -32,7 +32,10 @@ def run_experiments(n: int) -> Tuple[float, float]:
     return t_list, t_set
 
 
-def logs(f, n:int, t_list:float, t_set:float) -> None:
+def logs(f, n:int,
+         t_list:float,
+         t_set:float
+        ) -> None:
     """
     Рассчитывает ускорение и записывает строку результатов 
     в файл и в консоль.
