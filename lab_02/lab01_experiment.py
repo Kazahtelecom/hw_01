@@ -3,7 +3,7 @@ import random
 from typing import Tuple 
 
 
-def run_experiments(n):  
+def run_experiments(n: int) -> Tuple[float, float]:  
     """
     Генерирует данные размера n и замеряет время поиска.
     Используется наихудший случай (элемента нет в списке).
@@ -32,7 +32,7 @@ def run_experiments(n):
     return t_list, t_set
 
 
-def logs(f, n, t_list, t_set):
+def logs(f, n:int, t_list:float, t_set:float) -> None:
     """
     Рассчитывает ускорение и записывает строку результатов 
     в файл и в консоль.
@@ -57,7 +57,7 @@ def logs(f, n, t_list, t_set):
     f.write(row + "\n")
 
 
-def benchmark():
+def benchmark() -> None:
     """
     Основная функция. Настраивает файл, запускает цикл по размерам
     и вызывает функции эксперимента и логирования.
