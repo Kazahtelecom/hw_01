@@ -1,8 +1,9 @@
 import time
 import random
+from typing import Tuple 
 
 
-def run_experiments(n):
+def run_experiments(n):  
     """
     Генерирует данные размера n и замеряет время поиска.
     Используется наихудший случай (элемента нет в списке).
