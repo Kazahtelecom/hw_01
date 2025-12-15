@@ -27,6 +27,7 @@ def run_experiments():
     print(header)
     print(separator)
 
+
     # Открываем файл для записи
     with open("res.txt", "w", ) as f:
         f.write(header + "\n")
@@ -50,7 +51,7 @@ def run_experiments():
             start = time.perf_counter()
             _ = target in data_set
             end = time.perf_counter()
-            set_time = end - start
+            set_time = end - start # Exclude set creation time
 
             # Acceleration calculation
             speedup = list_time / set_time if set_time > 0 else 0.0
@@ -61,9 +62,14 @@ def run_experiments():
             # output to console and file
             print(row)
             f.write(row + "\n")
+            print(f"время поиска в списке: {list_time:.6f} с, время поиска в множестве: {set_time:.6f} с, ускорение: {speedup:.2f}x")
+            print(separator)
+
 
     print("\n--- Эксперимент завершен. Результаты сохранены в 'res.txt'. ---")
 
 
 if __name__ == "__main__":
     run_experiments()
+
+
