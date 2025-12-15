@@ -18,7 +18,7 @@ def run_experiments():
     Расчет времени создания множества (set(data)) исключен из замера.
     """
     
-    # Названия колонок
+    # name the columns
     header = f"{'Size':>30} | {'List Time (s)':>25} | {'Set Time (s)':>25} | {'Speedup':>30}"
     separator = "-" * 100
     
@@ -36,7 +36,7 @@ def run_experiments():
 
 
             n = 10 ** exp
-            # Генерация данных
+            # Generate data with no occurrence of target
             data = [random.randint(1, n // 2) for _ in range(n)]
             target = -1
 
@@ -53,13 +53,13 @@ def run_experiments():
             end = time.perf_counter()
             set_time = end - start
 
-            # Расчет ускорения
+            # Acceleration calculation
             speedup = list_time / set_time if set_time > 0 else 0.0
             
-            # Формируем строку
+            # Format the result row
             row = f"{n:10d} | {list_time:15.6f} | {set_time:15.6f} | {speedup:10.2f}x"
             
-            # Вывод в консоль и запись в файл
+            # output to console and file
             print(row)
             f.write(row + "\n")
             
