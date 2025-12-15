@@ -29,7 +29,7 @@ def run_experiments():
 
 
     # Открываем файл для записи
-    with open("res.txt", "w", ) as f:
+    with open("lab01_results.txt", "w", ) as f:
         f.write(header + "\n")
         f.write(separator + "\n")
 
