@@ -15,18 +15,18 @@ def run_experiments(n: int) -> Tuple[float, float]:
         tuple: (время_список, время_множество)
     """
     # Генерация данных
-    data = [random.randint(1, n // 2) for _ in range(n)]
+    data = [random.randint(1, n // 2) for found_status in range(n)]
     target = -1  # Элемента точно нет -> наихудший случай для списка
 
     # 1. Замер списка
     start = time.perf_counter()
-    _ = target in data
+    found_status = target in data
     t_list = time.perf_counter() - start
 
     # 2. Замер множества (время создания не учитываем)
     data_set = set(data)
     start = time.perf_counter()
-    _ = target in data_set
+    found_status = target in data_set
     t_set = time.perf_counter() - start
 
     return t_list, t_set
@@ -71,7 +71,7 @@ def benchmark() -> None:
     header = f"{'Размер':<10} | {'Список (сек)':<15} | {'Множество (сек)':<15} | {'Ускорение':<10}"
     separator = "-" * 65
 
-    print("--- Start Benchmark ---")
+    print("Start Benchmarking...\n")
     print(header)
     print(separator)
 
