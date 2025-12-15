@@ -32,10 +32,13 @@ def run_experiments():
         f.write(separator + "\n")
 
         for exp in range(1, 8):
+
+
+
             n = 10 ** exp
             # Генерация данных
             data = [random.randint(1, n // 2) for _ in range(n)]
-            target = random.choice(data)
+            target = -1
 
             # 1. Search in list (O(n))
             start = time.perf_counter()
