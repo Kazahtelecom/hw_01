@@ -32,3 +32,15 @@ class QueueFromStacks:
                 self.stack_out.append(self.stack_in.pop())
         return self.stack_out.pop()
     
+q = QueueFromStacks()
+q.enqueue("А") 
+q.enqueue("Б")
+print(q.dequeue())  # Вывод: "А"
+"""
+    Реализуйте очередь с помощью двух стеков.
+    Методы: enqueue(item) - добавить элемент в очередь
+             dequeue() - удалить и вернуть первый элемент из очереди
+    Если очередь пуста, dequeue() должен возвращать None.
+"""
+q.enqueue("В")
+print(q.dequeue())  # Вывод: "Б"
