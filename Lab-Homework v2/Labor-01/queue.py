@@ -16,3 +16,15 @@ class Queue:
     
     def is_empty(self):
         return len(self._items) == 0
+    def size(self):
+        """Вернуть количество элементов в очереди."""
+        return len(self._items)
+# Тестирование очереди
+if __name__ == "__main__":
+    q = Queue()
+    q.enqueue("Первый")
+    q.enqueue("Второй")
+    print(f"Извлечено: {q.dequeue()}") # Ожидаем: Первый (принцип FIFO)
+    print(f"Осталось в очереди: {q.size()}")
+    print(f"Извлечено: {q.dequeue()}") # Ожидаем: Второй
+    print(f"Очередь пуста: {q.is_empty()}")
