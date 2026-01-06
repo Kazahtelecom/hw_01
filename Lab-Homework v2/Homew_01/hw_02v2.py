@@ -1,9 +1,17 @@
 import csv
 import time
 
+# --- 0. Создаем тестовый файл routes.csv ---
+def create_sample_csv():
+    with open('routes.csv', mode='w', encoding='utf-8', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['route_id', 'route_name', 'stops']) # Заголовки
+        writer.writerow(['1', 'Алматы-Астана', 'Алматы, Караганда, Астана'])
+        writer.writerow(['2', 'Алматы-Шымкент', 'Алматы, Тараз, Шымкент'])
+        writer.writerow(['3', 'Астана-Павлодар', 'Астана, Экибастуз, Павлодар'])
 
+# --- 1. Твои функции загрузки и поиска ---
 def load_routes(filename: str) -> dict:
-    """Загружает CSV в словарь (хеш-таблицу) маршрутов."""
     routes = {}
     try:
         with open(filename, mode='r', encoding='utf-8') as f:
@@ -15,11 +23,10 @@ def load_routes(filename: str) -> dict:
                     "stops": stops_list
                 }
     except FileNotFoundError:
-        print(f"Ошибка: Файл {filename} не найден.")
+        return {}
     return routes
 
 def build_stop_index(routes: dict) -> dict:
-    """Создает индекс: остановка -> список ID маршрутов."""
     stop_index = {}
     for route_id, data in routes.items():
         for stop in data['stops']:
@@ -29,19 +36,30 @@ def build_stop_index(routes: dict) -> dict:
     return stop_index
 
 def find_routes_by_stop(stop_index: dict, stop_name: str) -> list:
-    """Поиск маршрутов за O(1)."""
     return stop_index.get(stop_name, [])
-# Бенчмарк
-def run_benchmark(stop_index, test_stop="Алматы"):
-    """Измеряет скорость 10,000 запросов поиска."""
-    print(f"\n--- Бенчмарк: 10,000 запросов для '{test_stop}' ---")
-    start_time = time.perf_counter()
-    
-    for _ in range(10000):
-        _ = find_routes_by_stop(stop_index, test_stop)
-        
-    end_time = time.perf_counter()
-    duration = end_time - start_time
-    print(f"Общее время: {duration:.4f} секунд")
-    print(f"Среднее время на 1 запрос: {duration/10000:.8f} секунд")
+
+# --- 2. Запуск всего процесса ---
+create_sample_csv() # Теперь файл точно существует!
+
+routes = load_routes('routes.csv')
+route_1 = routes.get(1)
+
+if route_1:
+    print(f"Маршрут 1: {route_1['name']}")
+else:
+    print("Маршрут 1: Не найден")
+
+stop_index = build_stop_index(routes)
+target = "Алматы"
+found = find_routes_by_stop(stop_index, target)
+print(f"Маршруты через {target} (ID): {found}")
+
+# --- 3. Бенчмарк ---
+start_time = time.perf_counter()
+for _ in range(10000):
+    _ = find_routes_by_stop(stop_index, target)
+end_time = time.perf_counter()
+
+print(f"\n--- Бенчмарк: 10,000 запросов ---")
+print(f"Общее время: {end_time - start_time:.6f} секунд")
     
