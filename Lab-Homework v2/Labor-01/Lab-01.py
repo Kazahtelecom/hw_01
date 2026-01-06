@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class Stack:
     def __init__(self):
         # Использование приватного списка для хранения элементов
