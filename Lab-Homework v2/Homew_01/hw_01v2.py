@@ -44,3 +44,38 @@ print(q.dequeue())  # Вывод: "А"
 """
 q.enqueue("В")
 print(q.dequeue())  # Вывод: "Б"
+
+def build_stop_index(routes: dict) -> dict:
+    """Создает индекс: остановка -> список ID маршрутов."""
+    stop_index = {}
+    for route_id, data in routes.items():
+        for stop in data['stops']:
+            if stop not in stop_index:
+                stop_index[stop] = []
+            stop_index[stop].append(route_id)
+    return stop_index
+
+def find_routes_by_stop(stop_index: dict, stop_name: str) -> list:
+    """Поиск за O(1) через заранее подготовленный индекс."""
+    return stop_index.get(stop_name, [])
+
+import csv
+import time
+
+def load_routes(filename: str) -> dict:
+    """Загружает CSV и создает хеш-таблицу маршрутов."""
+    routes = {}
+    with open(filename, mode='r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            # Превращаем строку "Алматы, Астана" в список ["Алматы", "Астана"]
+            stops_list = [s.strip() for s in row['stops'].split(',')]
+            routes[int(row['route_id'])] = {
+                "name": row['route_name'],
+                "stops": stops_list
+            }
+    return routes
+
+def find_route(routes: dict, route_id: int) -> dict | None:
+    """Мгновенный поиск O(1) по ключу в словаре."""
+    return routes.get(route_id)
