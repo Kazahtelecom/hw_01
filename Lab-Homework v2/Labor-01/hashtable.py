@@ -32,3 +32,6 @@ ht.insert(1, "Value1")
 ht.insert(6, "Value2")
 print(f"Index for 1: {hash(1)%5}, Index for 6: {hash(6)%5}")
 print(f"Chain at index 1: {ht.table[1]}") # Покажет оба элемента
+
+print(ht.get(1))  # Вывод: Value1
+print(ht.get(6))  # Вывод: Value2
