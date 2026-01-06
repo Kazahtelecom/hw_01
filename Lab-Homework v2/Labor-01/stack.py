@@ -1,4 +1,6 @@
 class Stack:
+    """Реализация стека с использованием списка Python."""
+
     def __init__(self):
         self._items = []
     
@@ -23,4 +25,26 @@ class Stack:
     def size(self):
         """Вернуть количество элементов в стеке."""
         return len(self._items) 
+def is_balanced(expression):
+    """Проверить, сбалансированы ли скобки в выражении."""
+    stack = Stack()
+    opening = "({["
+    closing = ")}]"
+    matches = {')': '(', '}': '{', ']': '['}
     
+    for char in expression:
+        if char in opening:
+            stack.push(char)
+        elif char in closing:
+            if stack.is_empty() or stack.pop() != matches[char]:
+                return False
+    
+    return stack.is_empty()
+# Тестирование (Задание A3)
+if __name__ == "__main__":
+    test_cases = ["{[()]}", "{[(])}", "((()))", "[()]{}", "({[})"]
+    
+    print("--- Проверка баланса скобок ---")
+    for expr in test_cases:
+        result = is_balanced(expr)
+        print(f"Выражение: {expr:10} | Сбалансировано: {result}")
