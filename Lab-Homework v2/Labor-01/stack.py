@@ -19,3 +19,8 @@ class Stack:
     def is_empty(self):
         """Проверить пустоту."""
         return len(self._items) == 0
+    
+    def size(self):
+        """Вернуть количество элементов в стеке."""
+        return len(self._items) 
+    
