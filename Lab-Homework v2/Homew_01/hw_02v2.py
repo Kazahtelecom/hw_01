@@ -44,3 +44,4 @@ def run_benchmark(stop_index, test_stop="Алматы"):
     duration = end_time - start_time
     print(f"Общее время: {duration:.4f} секунд")
     print(f"Среднее время на 1 запрос: {duration/10000:.8f} секунд")
+    
