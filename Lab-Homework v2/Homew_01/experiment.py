@@ -1,13 +1,15 @@
 import time
 import random
 
-def has_duplicates_slow(lst): # O(n^2)
+def has_duplicates_slow(lst: list) -> bool: # O(n^2)
+    """Проверяет наличие дубликатов за O(n²) с помощью вложенных циклов."""
     for i in range(len(lst)):
         for j in range(i + 1, len(lst)):
             if lst[i] == lst[j]: return True
     return False
 
-def has_duplicates_fast(lst): # O(n) через хеш-таблицу (set)
+def has_duplicates_fast(lst: list) -> bool: # O(n) через хеш-таблицу (set)
+    """Проверяет наличие дубликатов за O(n) с помощью множества."""
     seen = set()
     for item in lst:
         if item in seen: return True
