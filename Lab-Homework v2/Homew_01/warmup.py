@@ -34,3 +34,22 @@ class QueueFromStacks:
             while self.stack_in:
                 self.stack_out.append(self.stack_in.pop())
         return self.stack_out.pop()
+
+def test_queue():
+    q = QueueFromStacks()
+    q.enqueue(1)
+    q.enqueue(2)
+    q.enqueue(3)
+    assert q.dequeue() == 1
+    assert q.dequeue() == 2
+    q.enqueue(4)
+    assert q.dequeue() == 3
+    assert q.dequeue() == 4
+    assert q.dequeue() is None
+def test_reverse_string():
+    assert reverse_string("hello") == "olleh"
+    assert reverse_string("") == ""
+    assert reverse_string("a") == "a"
+    assert reverse_string("abcd") == "dcba"
+test_reverse_string()
+test_queue()
