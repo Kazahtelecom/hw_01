@@ -1,6 +1,7 @@
 # Задача 1.1: Реверс строки через стек
 def reverse_string(s: str) -> str:
-    """Запрещено: s[::-1], reversed()"""
+    
+    """Запрещено: s[::-1], reversed(), ''.join(reversed(s))"""
     stack = []
     # Push всех символов в стек
     for char in s:
@@ -14,14 +15,19 @@ def reverse_string(s: str) -> str:
 
 # Задача 1.2: Очередь из двух стеков
 class QueueFromStacks:
-    def __init__(self):
-        self.stack_in = []
-        self.stack_out = []
+    """Очередь, реализованная с помощью двух стеков."""
+
+    def __init__(self) -> None:
+        """Инициализация двух стеков."""
+        self.stack_in: list = []
+        self.stack_out: list = []
     
-    def enqueue(self, item):
+    def enqueue(self, item) -> None:
+        """Добавляет элемент в конец очереди."""
         self.stack_in.append(item)
     
     def dequeue(self):
+        """Удаляет и возвращает элемент из начала очереди. Возвращает None, если очередь пуста."""
         if not self.stack_in and not self.stack_out:
             return None
         if not self.stack_out:
