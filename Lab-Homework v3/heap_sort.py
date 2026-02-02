@@ -1,15 +1,44 @@
+import random
+
 def heapify(arr, n, i):
     """Просеивание вниз для max-heap."""
     # Ваша реализация
+    large = i  # Инициализируем наибольший как корень
+    left = 2 * i + 1     # левый = 2*i + 1
+    right = 2 * i + 2    # правый = 2*i + 2
+
+    if left < n and arr[left] > arr[large]: # Если левый дочерний элемент больше корня
+
+        large = left
+    if right < n and arr[right] > arr[large]: # Если правый дочерний элемент больше, чем самый большой элемент на данный момент
+
+        large = right
+    if large != i:
+        arr[i], arr[large] = arr[large], arr[i]  # обмен
+        heapify(arr, n, large) # Рекурсивно просеять вниз затронутое поддерево
+
+
     pass
 
 def heap_sort(arr):
     """Сортировка кучей (in-place, возвращает arr)."""
     # Ваша реализация
+    n = len(arr)
+    # Построение max-heap
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+    # Один за другим извлекаем элементы из кучи
+    for i in range(n - 1, 0, -1):
+        # Перемещаем текущий корень в конец
+        arr[i], arr[0] = arr[0], arr[i]  # обмен
+        heapify(arr, i, 0) # Просеивание вниз корня кучи
+        return arr
+    
+
     pass
 
 # Тесты для проверки
-import random
+
 
 def test_heap_sort():
     # Пустой массив
@@ -30,4 +59,5 @@ def test_heap_sort():
     
     print("✓ Все тесты пройдены!")
 
-test_heap_sort()
+if __name__ == "__main__":
+    test_heap_sort()
