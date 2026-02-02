@@ -22,20 +22,18 @@ def heapify(arr, n, i):
 
 def heap_sort(arr):
     """Сортировка кучей (in-place, возвращает arr)."""
-    # Ваша реализация
     n = len(arr)
-    # Построение max-heap
+
+    # Построение кучи
     for i in range(n // 2 - 1, -1, -1):
         heapify(arr, n, i)
-    # Один за другим извлекаем элементы из кучи
-    for i in range(n - 1, 0, -1):
-        # Перемещаем текущий корень в конец
-        arr[i], arr[0] = arr[0], arr[i]  # обмен
-        heapify(arr, i, 0) # Просеивание вниз корня кучи
-        return arr
-    
 
-    pass
+    # Извлечение элементов
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+    
+    return arr
 
 # Тесты для проверки
 
