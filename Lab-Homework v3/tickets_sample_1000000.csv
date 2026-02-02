@@ -1,6 +1,0 @@
-from tickets_helpers_lite import load_tickets, benchmark
-
-# Внутри вашего if __name__ == "__main__":
-# tickets = load_tickets("tickets_sample_1000000.csv")
-# timestamps = [t['created_time'] for t in tickets if t['created_time']]
-# benchmark(lambda: heap_sort(timestamps.copy()), runs=3)
