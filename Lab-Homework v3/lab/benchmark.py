@@ -1,18 +1,24 @@
 import random
+import time
+from heap_sort import heap_sort
 
-# Тест 1: случайный массив
-data = [random.randint(0, 1000) for _ in range(100)]
-result = heap_sort(data.copy())
-assert result == sorted(data), "Ошибка на случайных данных!"
 
-# Тест 2: уже отсортированный
-data = list(range(100))
-result = heap_sort(data.copy())
-assert result == sorted(data)
+def measure_time(sort_func, data, runs=5):
+    times = []
+    for _ in range(runs):
+        data_copy = data.copy()
+        start = time.perf_counter()
+        sort_func(data_copy)
+        times.append(time.perf_counter() - start)
+    return sum(times) / len(times)
 
-# Тест 3: обратный порядок
-data = list(range(100, 0, -1))
-result = heap_sort(data.copy())
-assert result == sorted(data)
 
-print("✓ Все тесты пройдены!")
+sizes = [1000, 5000, 10000]
+
+for size in sizes:
+    data = [random.randint(0, 100000) for _ in range(size)]
+
+    t_heap = measure_time(heap_sort, data)
+    t_sorted = measure_time(sorted, data)
+
+    print(f"n={size}: heap_sort={t_heap:.4f}s, sorted={t_sorted:.4f}s")
