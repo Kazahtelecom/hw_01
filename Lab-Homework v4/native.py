@@ -24,11 +24,17 @@ def top_routes_by_revenue_naive(tickets, n=10):
 
 def tickets_by_hour_naive(tickets):
     """
-    Количество билетов по часам (0-23).
-    Возвращает dict {hour: count}
+    Количество билетов по часам (0–23).
     """
-    # Ваш код
-    pass
+    result = {}
+    for hour in range(24):
+        count = 0
+        for t in tickets:
+            if t['hour'] == hour:
+                count += 1
+        result[hour] = count
+    return result
+
 
 def find_duplicates_naive(tickets, key='original_id'):
     """
