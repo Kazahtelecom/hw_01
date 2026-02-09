@@ -38,8 +38,15 @@ def tickets_by_hour_naive(tickets):
 
 def find_duplicates_naive(tickets, key='original_id'):
     """
-    Найти дубликаты по ключу.
+    Поиск дубликатов.
     Наивная реализация: O(n²)
     """
-    # Ваш код
-    pass
+    duplicates = []
+
+    for i in range(len(tickets)):
+        for j in range(i + 1, len(tickets)):
+            if tickets[i][key] == tickets[j][key]:
+                duplicates.append(tickets[i])
+                break
+
+    return duplicates
