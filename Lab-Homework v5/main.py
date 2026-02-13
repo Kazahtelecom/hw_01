@@ -1,62 +1,102 @@
 import csv
 from graph import Graph
+from traversals import bfs, dfs, shortest_path
+from components import find_components
 
 
 def load_graph(filename):
-    """Загрузить CSV → Graph."""
-    g = Graph()
 
+    g = Graph()
     routes = {}
 
     with open(filename, encoding='utf-8') as f:
+
         reader = csv.DictReader(f)
 
         for row in reader:
+
             route = row['route']
             order = int(row['order'])
             stop = row['stop']
 
             routes.setdefault(route, []).append((order, stop))
 
-    # создаём рёбра
     for route, stops in routes.items():
+
         stops.sort()
 
-        for i in range(len(stops) - 1):
-            stop1 = stops[i][1]
-            stop2 = stops[i+1][1]
+        for i in range(len(stops)-1):
 
-            g.add_edge(stop1, stop2)
+            g.add_edge(stops[i][1], stops[i+1][1])
 
     return g
 
 
 def main():
 
-    print("=== Загрузка графа ===")
-
     g = load_graph('astana_stops.csv')
 
-    print(f"|V| = {len(g.vertices())}")
-    print(f"|E| = {g.edge_count()}")
+    print("\n=== ЧАСТЬ B1: BFS ===")
 
-    print("\n=== Лемма о рукопожатиях ===")
+    order = bfs(g, 'Микрорайон Самал')
 
-    total_deg = sum(g.degree(v) for v in g.vertices())
+    print(f'Посещено: {len(order)} из {len(g.vertices())}')
+    print("Первые 5:", order[:5])
 
-    print(f"∑ deg(v) = {total_deg}")
-    print(f"2 × |E| = {2 * g.edge_count()}")
 
-    assert total_deg == 2 * g.edge_count()
+    print("\n=== ЧАСТЬ B2: DFS ===")
 
-    print("✓ Лемма подтверждена")
+    order_dfs = dfs(g, 'Микрорайон Самал')
 
-    print("\n=== Топ-3 остановки ===")
+    print(f'Посещено: {len(order_dfs)} из {len(g.vertices())}')
+    print("Первые 5:", order_dfs[:5])
 
-    top = sorted(g.vertices(), key=g.degree, reverse=True)[:3]
 
-    for stop in top:
-        print(f"{stop}: deg = {g.degree(stop)}")
+    print("\n=== ЧАСТЬ B3: shortest_path ===")
+
+    path = shortest_path(
+        g,
+        'ТЖ Вокзал',
+        'ЕНУ им. Гумилёва'
+    )
+
+    if path:
+
+        print(f'Путь ({len(path)-1} остановок):')
+        print(" → ".join(path))
+
+    else:
+        print("Путь не найден")
+
+
+    print("\n=== ЧАСТЬ C1: components ===")
+
+    comps = find_components(g)
+
+    print(f'Компонент: {len(comps)}')
+
+    for i, comp in enumerate(comps):
+
+        print(f'Компонента {i+1}: {len(comp)} вершин')
+
+
+    print("\n=== ЧАСТЬ C2: удаление хаба ===")
+
+    g2 = Graph()
+
+    for v in g.vertices():
+
+        if v == 'Микрорайон Самал':
+            continue
+
+        for u in g.neighbors(v):
+
+            if u != 'Микрорайон Самал':
+                g2.add_edge(v, u)
+
+    comps2 = find_components(g2)
+
+    print(f'Без Самал: {len(comps2)} компонент')
 
 
 if __name__ == "__main__":
