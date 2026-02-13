@@ -9,7 +9,10 @@ class Graph:
     def add_edge(self, u, v):
         """Добавить ребро u—v (неориентированный)."""
         # Ваш код: добавьте v в adj[u] и u в adj[v]
-        pass
+        self.adj[u].add(v)
+        self.adj[v].add(u)
+
+        
     
     def neighbors(self, v):
         """Вернуть множество соседей вершины v."""
@@ -21,10 +24,12 @@ class Graph:
     
     def degree(self, v):
         """Степень вершины: deg(v) = число соседей."""
-        # Ваш код
-        pass
+        return len(self.adj[v])
+        
     
     def edge_count(self):
         """Число рёбер |E|. Подсказка: ∑ deg(v) = 2|E|."""
-        # Ваш код
-        pass
+        total_degree = sum(self.degree(v) for v in self.vertices())
+        return total_degree // 2  # делим на 2, так как каждое ребро посчитано дважды
+        
+        
