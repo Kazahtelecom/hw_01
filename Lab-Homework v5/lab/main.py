@@ -41,7 +41,7 @@ def main():
     order = bfs(g, 'Микрорайон Самал')
 
     print(f'Посещено: {len(order)} из {len(g.vertices())}')
-    print("Первые 5:", order[:5])
+    print("Первые 5:", order[:10])
 
 
     print("\n=== ЧАСТЬ B2: DFS ===")
@@ -49,7 +49,7 @@ def main():
     order_dfs = dfs(g, 'Микрорайон Самал')
 
     print(f'Посещено: {len(order_dfs)} из {len(g.vertices())}')
-    print("Первые 5:", order_dfs[:5])
+    print("Первые 5:", order_dfs[:10])
 
 
     print("\n=== ЧАСТЬ B3: shortest_path ===")
